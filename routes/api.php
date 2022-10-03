@@ -37,6 +37,8 @@ Route::post('/reset-password', 'App\Http\Controllers\Auth\ForgotPasswordControll
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::post('/email/verification-notification', 'App\Http\Controllers\Auth\EmailVerificationController@sendVerificationEmail')->middleware('auth:sanctum')->name('email_verification');
+Route::get('verify-email/{id}/{hash}', 'App\Http\Controllers\Auth\EmailVerificationController@verify')->middleware('auth:sanctum')->name('get.verification');
 Route::get('test_api', 'App\Http\Controllers\Api@index')->name('api');
 
 Route::apiResources([
