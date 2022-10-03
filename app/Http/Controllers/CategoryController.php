@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Symfony\Component\Console\Input\Input;
 
 class CategoryController extends Controller
 {
@@ -14,6 +15,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        $category = Category::all();
+        return $category;
         //
     }
 
@@ -25,6 +28,7 @@ class CategoryController extends Controller
     public function create()
     {
         //
+
     }
 
     /**
@@ -36,6 +40,16 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate($request, [
+            'name' => 'required',
+            'description' => 'required'
+        ]);
+
+        $category = new Category;
+        $category->name = $request->input('name');
+        $category->description = $request->input('description');
+        $category->save();
+        return $category;
     }
 
     /**
@@ -47,6 +61,8 @@ class CategoryController extends Controller
     public function show(Category $category)
     {
         //
+        $cate = Category::find($category);
+        return $cate;
     }
 
     /**
@@ -58,6 +74,8 @@ class CategoryController extends Controller
     public function edit(Category $category)
     {
         //
+        $cate = Category::find($category);
+        return $cate;
     }
 
     /**
@@ -70,6 +88,22 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category)
     {
         //
+
+        $this->validate($request, [
+            'name' => 'required',
+            'description' => 'required'
+        ]);
+
+        $category->update([
+            'name' => $request->name,
+            'description' => $request->description,
+        ]);
+        // $cate = Category::find($category);
+        // $cate->name = $request->input('name');
+        // $cate->description = $request->input('description');
+        // $cate->save();
+        // return $cate;
+        return response()->json(['record updated successfully'], 202);
     }
 
     /**
@@ -81,5 +115,8 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         //
+        // $cate = Category::find($category);
+        $category->delete();
+        return response()->json(['Deleted succssesfully']);
     }
 }

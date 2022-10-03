@@ -15,6 +15,7 @@ class CreateCommentsTable extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
+            $table->integer('blog_id');
             $table->string('name');
             $table->string('email');
             $table->string('message', '1000')->nullable();

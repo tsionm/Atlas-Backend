@@ -15,6 +15,8 @@ class AiPoweredController extends Controller
     public function index()
     {
         //
+        $aiPowered = AiPowered::all();
+        return $aiPowered;
     }
 
     /**

@@ -17,7 +17,7 @@ class CreateSDevelopmentsTable extends Migration
             $table->id();
             $table->integer('product_id');
             $table->string('name');
-            $table->binary('image');
+            $table->mediumbinary('image');
             $table->timestamps();
         });
     }
